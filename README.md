@@ -13,7 +13,7 @@
 開発環境は MacOS ですが、機種依存コードは使ってないので Win/Linux でも動くと思います。
 
 ## ビルド方法
-
+ビルドには CMake が必要です。あらかじめインストールしてください。
 ```bash
 mkdir build
 cmake -S . -B build
@@ -29,13 +29,11 @@ cmake --build build
 などで起動後、デフォルトブラウザで http://localhost:18080 が開きます。
 `index.html` が表示されれば成功です。
 
-![OceanMini screenshot](./resources/OceanMini-OS.png)
+![OceanMini screenshot](./resources/OceanMini-OS-1280.png)
 
 ## ライセンス
 
-OceanMini OpenSource Version は GNU General Public License version 3 で公開しています。
-
-詳細は `LICENSE` を参照してください。
+とりあえず GPL version 3。
 
 ## Third Party
 
