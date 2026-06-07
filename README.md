@@ -26,13 +26,9 @@ cmake --build build
 ```bash
 ./build/oceanmini
 ```
-などで起動後、デフォルトブラウザで次の URL が開きます。
-
-```text
-http://localhost:18080/
-```
-
+などで起動後、デフォルトブラウザで http://localhost:18080 が開きます。
 `index.html` が表示されれば成功です。
+![OceanMini screenshot](./resources/OceanMini-OS.png)
 
 ## ライセンス
 
