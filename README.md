@@ -1,6 +1,6 @@
 # OceanMini OpenSource Version
 
-[OceanMini](https://phazor.info/OpenOcean/?page_id=592) のオープンソース版です。
+[OceanMini](https://phazor.info/OpenOcean/?page_id=592) のオープンソース版のソースコードの一部です。
 
 今回は組み込み Web サーバに [Crow](https://github.com/CrowCpp/Crow) を使ってみました。
 
@@ -10,7 +10,7 @@
 - C++17 対応コンパイラ
 - MacOS / Windows / Linux
 
-開発環境は MacOS ですが、機種依存コードは使ってないので Win/Linux でも動くと思います。
+開発環境は MacOS ですが、OS 依存コードは使ってないので Win/Linux でも動くと思います。
 
 ## ビルド方法
 ビルドには CMake が必要です。あらかじめインストールしておいてください。
