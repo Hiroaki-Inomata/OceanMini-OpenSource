@@ -12,10 +12,14 @@ by Hiroaki Inomata
 #include <string>
 #include <csignal>
 #include <cstdlib>
+#include <unordered_map>
 
 namespace fs = std::filesystem;
 
 static volatile std::sig_atomic_t stop_requested = 0;
+static std::string url_decode(const std::string& value);
+static std::unordered_map<std::string, std::string> parse_form_body(const std::string& body);
+
 
 void handle_signal(int) {
     stop_requested = 1;
@@ -100,13 +104,30 @@ public:
             return serve_static_file("index.html");
         });
 
-               // ログイン処理: 今は手抜きで全員ログイン成功
+        // Login
         CROW_ROUTE(app, "/Login")
         .methods(crow::HTTPMethod::POST)
         ([](const crow::request& req){
+            auto params = parse_form_body(req.body);
+
+            const std::string facilityid = params["facilityid"];
+            const std::string userid     = params["userid"];
+            const std::string password   = params["password"];
+
+            const bool login_ok =
+                facilityid == "ocean" &&
+                userid == "ocean" &&
+                password == "ocean";
+
             crow::response res;
-            res.code = 302;
-            res.set_header("Location", "/Welcome");
+            res.code = 303;
+
+            if (login_ok) {
+                res.set_header("Location", "/Welcome");
+            } else {
+                res.set_header("Location", "/?error=1");
+            }
+
             return res;
         });
 
@@ -171,6 +192,50 @@ static void open_default_browser(const std::string& url) {
 #endif
 
     std::system(command.c_str());
+}
+
+static std::string url_decode(const std::string& value) {
+    std::string result;
+
+    for (std::size_t i = 0; i < value.size(); ++i) {
+        if (value[i] == '+') {
+            result += ' ';
+        } else if (value[i] == '%' && i + 2 < value.size()) {
+            std::string hex = value.substr(i + 1, 2);
+            char ch = static_cast<char>(std::strtol(hex.c_str(), nullptr, 16));
+            result += ch;
+            i += 2;
+        } else {
+            result += value[i];
+        }
+    }
+
+    return result;
+}
+
+static std::unordered_map<std::string, std::string> parse_form_body(const std::string& body) {
+    std::unordered_map<std::string, std::string> params;
+
+    std::size_t start = 0;
+    while (start < body.size()) {
+        std::size_t end = body.find('&', start);
+        if (end == std::string::npos) {
+            end = body.size();
+        }
+
+        std::string pair = body.substr(start, end - start);
+        std::size_t eq = pair.find('=');
+
+        if (eq != std::string::npos) {
+            std::string key = url_decode(pair.substr(0, eq));
+            std::string value = url_decode(pair.substr(eq + 1));
+            params[key] = value;
+        }
+
+        start = end + 1;
+    }
+
+    return params;
 }
 
 int main() {
