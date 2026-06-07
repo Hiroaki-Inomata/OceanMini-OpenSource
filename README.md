@@ -2,7 +2,7 @@
 
 [OceanMini](https://phazor.info/OpenOcean/?page_id=592) のオープンソース版です。
 
-今回は組み込 Web サーバに [Crow](https://github.com/CrowCpp/Crow) を使ってみました。
+今回は組み込み Web サーバに [Crow](https://github.com/CrowCpp/Crow) を使ってみました。
 
 ## 動作環境
 
@@ -28,6 +28,7 @@ cmake --build build
 ```
 などで起動後、デフォルトブラウザで http://localhost:18080 が開きます。
 `index.html` が表示されれば成功です。
+
 ![OceanMini screenshot](./resources/OceanMini-OS.png)
 
 ## ライセンス
