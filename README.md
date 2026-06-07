@@ -1,6 +1,6 @@
 # OceanMini OpenSource Version
 
-[OceanMini](https://phazor.info/OpenOcean/?page_id=592) のオープンソース版のソースコードの一部です。
+[OceanMini](https://phazor.info/OpenOcean/?page_id=592) の CMake 版のソースコードの一部です。
 
 今回は組み込み Web サーバに [Crow](https://github.com/CrowCpp/Crow) を使ってみました。
 
